@@ -4,7 +4,6 @@ namespace Modules\User\app\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Profile;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -67,10 +66,5 @@ class User extends Authenticatable
     public function settings()
     {
         return $this->morphMany(Setting::class, 'model');
-    }
-
-    public function profiles()
-    {
-        return $this->hasMany(Profile::class);
     }
 }
