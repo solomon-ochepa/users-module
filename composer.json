@@ -19,7 +19,9 @@
         "nwidart/laravel-modules": "*",
         "joshbrw/laravel-module-installer": "*",
         "mhmiton/laravel-modules-livewire": "*",
-        "solomon-ochepa/status-module": "*"
+        "solomon-ochepa/status-module": "*",
+        "plank/laravel-mediable": "^5.9",
+        "spatie/laravel-permission": "^5.9"
     },
     "extra": {
         "laravel": {
