@@ -21,6 +21,10 @@ php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProv
     }
   }
   ```
+  ```
+  composer dumpautoload
+  ```
+  
 - Replace `/config/modules.php` with - https://drive.google.com/file/d/1y0RdfQ0LJ_12yxN5qHrZvIQqZJgWJhrd/view?usp=sharing
 - Replace `/stubs/nwidart-stubs` with - https://drive.google.com/file/d/1-FuBcvv2JJtNBjVJIEW9jMh6wS-DJhJW/view?usp=sharing
 
