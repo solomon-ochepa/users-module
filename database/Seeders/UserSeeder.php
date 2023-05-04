@@ -6,6 +6,7 @@ use Modules\User\app\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -45,6 +46,13 @@ class UserSeeder extends Seeder
                 $role = Role::firstOrCreate(['name' => $user->username]);
                 $user->assignRole($role->name);
             }
+        }
+
+        // Permissions
+        $namespaces = collect(['admin.user']);
+        $permissions = collect(['index', 'show', 'create', 'edit', 'delete']);
+        foreach ($namespaces as $namespace) {
+            $permissions->each(fn ($permission) => Permission::firstOrCreate(['name' => "{$namespace}.{$permission}"]));
         }
     }
 }
