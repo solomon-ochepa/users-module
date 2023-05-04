@@ -23,14 +23,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'username',
-        'phone',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['first_name', 'middle_name', 'last_name', 'username', 'phone', 'email', 'password',];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,6 +43,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $guard_name = 'web';
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
 
     /**
      * Get user full name
