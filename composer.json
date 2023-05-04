@@ -19,8 +19,8 @@
         "nwidart/laravel-modules": "*",
         "joshbrw/laravel-module-installer": "*",
         "solomon-ochepa/status-module": "*",
-        "plank/laravel-mediable": "^5.9",
-        "spatie/laravel-permission": "^5.9"
+        "plank/laravel-mediable": "*",
+        "spatie/laravel-permission": "*"
     },
     "extra": {
         "laravel": {
