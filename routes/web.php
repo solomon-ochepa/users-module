@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\User\app\Http\Controllers\Admin\UserController;
+use Modules\User\app\Http\Controllers\UserController;
 
 /*
     |--------------------------------------------------------------------------
@@ -14,10 +14,10 @@ use Modules\User\app\Http\Controllers\Admin\UserController;
     |
 */
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('user', UserController::class)->except(['index'])->names('user');
     Route::get('users', [UserController::class, 'index'])->name('user.index');
     Route::get('user/{user}/restore', [UserController::class, 'restore'])->name('user.restore');
     Route::delete('user/{user}/permanent', [UserController::class, 'permanent'])->name('user.destroy.permanent');
-    Route::get('user', fn () => redirect(route('admin.user.index')));
+    Route::get('user', fn () => redirect(route('user.index')))->name('user.index.redirecr');
 });

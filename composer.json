@@ -17,10 +17,7 @@
     "license": "MIT",
     "require": {
         "nwidart/laravel-modules": "*",
-        "joshbrw/laravel-module-installer": "*",
-        "solomon-ochepa/status-module": "*",
-        "plank/laravel-mediable": "*",
-        "spatie/laravel-permission": "*"
+        "joshbrw/laravel-module-installer": "*"
     },
     "extra": {
         "laravel": {

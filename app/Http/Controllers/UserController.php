@@ -1,8 +1,7 @@
 <?php
 
-namespace Modules\User\app\Http\Controllers\Admin;
+namespace Modules\User\app\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,11 +13,11 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:user.list'])->only('index');
-        $this->middleware(['permission:user.show'])->only('show');
-        $this->middleware(['permission:user.create'])->only('create', 'store');
-        $this->middleware(['permission:user.edit'])->only('edit', 'update');
-        $this->middleware(['permission:user.delete'])->only('destroy');
+        // $this->middleware(['permission:user.list'])->only('index');
+        // $this->middleware(['permission:user.show'])->only('show');
+        // $this->middleware(['permission:user.create'])->only('create', 'store');
+        // $this->middleware(['permission:user.edit'])->only('edit', 'update');
+        // $this->middleware(['permission:user.delete'])->only('destroy');
     }
 
     /**
