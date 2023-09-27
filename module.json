@@ -1,7 +1,7 @@
 {
     "name": "User",
     "alias": "user",
-    "description": "Users - Laravel module.",
+    "description": "Laravel Users module.",
     "keywords": [
         "user-module",
         "laravel-module",
