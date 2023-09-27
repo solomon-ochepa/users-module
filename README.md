@@ -1,42 +1,46 @@
 # users-module
-Users - Laravel module
+Laravel Users module
 
-## Installation - nwidart/laravel-modules
-Doc: https://nwidart.com/laravel-modules/v6/introduction
+## Installation
 ```
-composer require nwidart/laravel-modules
-```
-```
-php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProvider"
+composer require solomon-ochepa/user-module
 ```
 
-#### Autoload: Update `/composer.json` - add `"Modules\\": "Modules/"` to `autoload->psr-4`
+### Enable the module
+```
+php artisan module:enable
+```
+
+### Run the artisan migration command
+```
+php artisan migrate
+```
+
+## Required
+- nwidart/laravel-modules - https://nwidart.com/laravel-modules/v6/introduction
+
+## Update composer.json
+Add the following property to composer.json
+```json
+"Modules\\": "Modules/"
+```
   ```json
   "autoload": {
     "psr-4": {
       "App\\": "app/",
-      "Modules\\": "Modules/",
       "Database\\Factories\\": "database/factories/",
-      "Database\\Seeders\\": "database/seeders/"
+      "Database\\Seeders\\": "database/seeders/",
+      "Modules\\": "Modules/"
     }
   }
   ```
+
+  ## Update composer autoload
   ```
   composer dumpautoload
   ```
 
-### Recommended
+## Recommended
 - Replace `/config/modules.php` with - https://drive.google.com/file/d/1y0RdfQ0LJ_12yxN5qHrZvIQqZJgWJhrd/view?usp=sharing
 - Replace `/stubs/nwidart-stubs` with - https://drive.google.com/file/d/1-FuBcvv2JJtNBjVJIEW9jMh6wS-DJhJW/view?usp=sharing
 ---
-
-## Installation - user-modules
-```
-composer require solomon-ochepa/user-module
-```
-```
-php artisan module:enable
-```
-```
-php artisan migrate
-```

@@ -19,5 +19,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('user.index');
     Route::get('user/{user}/restore', [UserController::class, 'restore'])->name('user.restore');
     Route::delete('user/{user}/permanent', [UserController::class, 'permanent'])->name('user.destroy.permanent');
-    Route::get('user', fn () => redirect(route('user.index')))->name('user.index.redirecr');
+    Route::get('user', fn () => redirect()->route('user.index'))->name('user.index.redirect');
 });

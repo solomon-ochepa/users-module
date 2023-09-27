@@ -2,9 +2,12 @@
 
 namespace Modules\User\app\Http\Controllers;
 
+// use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controller; // reeplace with "App\Http\Controllers\Controller" (if available)
+use Modules\User\app\Http\Requests\StoreUserRequest;
+use Modules\User\app\Http\Requests\UpdateUserRequest;
 use Modules\User\app\Models\User;
 
 class UserController extends Controller
@@ -13,11 +16,11 @@ class UserController extends Controller
 
     public function __construct()
     {
-        // $this->middleware(['permission:user.list'])->only('index');
-        // $this->middleware(['permission:user.show'])->only('show');
-        // $this->middleware(['permission:user.create'])->only('create', 'store');
-        // $this->middleware(['permission:user.edit'])->only('edit', 'update');
-        // $this->middleware(['permission:user.delete'])->only('destroy');
+        // $this->middleware(['permission:users.list'])->only('index');
+        // $this->middleware(['permission:users.show'])->only('show');
+        // $this->middleware(['permission:users.create'])->only('create', 'store');
+        // $this->middleware(['permission:users.edit'])->only('edit', 'update');
+        // $this->middleware(['permission:users.delete'])->only('destroy');
     }
 
     /**
@@ -27,7 +30,9 @@ class UserController extends Controller
     {
         $this->data['head']['title'] = 'Users Management';
 
-        return response(view('user::admin.index', $this->data));
+        $this->data['users'] = User::all();
+
+        return response(view('user::index', $this->data));
     }
 
     /**
@@ -35,17 +40,20 @@ class UserController extends Controller
      */
     public function create(): Response
     {
-        $this->data['head']['title'] = 'Create Apartment';
+        $this->data['head']['title'] = 'Create User';
 
-        return response(view('user::admin.create', $this->data));
+        return response(view('user::create', $this->data));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-        // livewire
+        // ... store the user record
+
+        session()->flash('status', 'User created successfully.');
+        return redirect(route('user.index'));
     }
 
     /**
@@ -53,9 +61,11 @@ class UserController extends Controller
      */
     public function show(User $user): Response
     {
-        $this->data['head']['title']    = $user->name;
+        $this->data['head']['title'] = $user->name;
 
-        return response(view('user::admin.show', $this->data));
+        $this->data['user'] = $user;
+
+        return response(view('user::show', $this->data));
     }
 
     /**
@@ -63,18 +73,22 @@ class UserController extends Controller
      */
     public function edit(User $user): Response
     {
-        $this->data['head']['title']    = "Edit: {$user->name}";
-        $this->data['user']        = $user;
+        $this->data['head']['title'] = "Edit: {$user->name}";
 
-        return response(view('user::admin.edit', $this->data));
+        $this->data['user'] = $user;
+
+        return response(view('user::edit', $this->data));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        //
+        // ... update user record
+
+        session()->flash('status', 'User updated successfully.');
+        return redirect(route('user.index'));
     }
 
     /**
@@ -82,37 +96,29 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        // User Tenancies
-        if ($user->tenancies) {
-            $user->tenancies->each(fn ($tenancy) => $tenancy->delete());
-        }
+        // relationships
 
-        // User account
+        // Trash User account
         $user->delete();
 
         session()->flash('status', 'User trashed successfully.');
-        return redirect(route('admin.user.index'));
+        return redirect(route('user.index'));
     }
 
     /**
-     * Restore the specified resource to the storage.
+     * Restore the specified resource to storage.
      */
     public function restore($user): RedirectResponse
     {
-        // Get user object
+        // Get user
         $user = User::withTrashed()->find($user);
 
-        // User Tenancies
-        if ($user->tenancies()->withTrashed()->count()) {
-            $user->tenancies()->withTrashed()->each(fn ($tenancy) => $tenancy->restore());
-        }
-
-        // more relationships
+        // relationships
 
         $user->restore();
 
-        session()->flash('status', 'User has been restored successfully.');
-        return redirect(route('admin.user.index'));
+        session()->flash('status', 'User restored successfully.');
+        return redirect(route('user.index'));
     }
 
     /**
@@ -122,27 +128,12 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->find($user);
 
-        // User Tenancies
-        if ($user->tenancies()->withTrashed()->count()) {
-            $user->tenancies()->withTrashed()->each(fn ($tenancy) => $tenancy->forceDelete());
-        }
-
-        // // Medias
-        // if ($user->media) {
-        //     foreach ($user->media->unique() as $media) {
-        //         dd($user->mediables);
-        //     }
-        //     dd('hi');
-        // }
-
-        // dd('...wait!');
-
-        // more relationships
+        // relationships
 
         // User account
         $user->forceDelete();
 
-        session()->flash('status', 'User has been deleted permanently from the system.');
-        return redirect(route('admin.user.index'));
+        session()->flash('status', 'User deleted permanently.');
+        return redirect(route('user.index'));
     }
 }
