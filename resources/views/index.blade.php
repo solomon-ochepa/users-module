@@ -1,9 +1,5 @@
-@extends('user::layouts.master')
-
-@section('content')
+<x-app-layout :data="$head ?? []">
     <h1>Hello World</h1>
 
-    <p>
-        This view is loaded from module: {!! config('user.name') !!}
-    </p>
-@endsection
+    <p>Module: {!! config('user.name') !!}</p>
+</x-app-layout>

@@ -6,24 +6,25 @@ namespace Modules\User\app\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\User\database\factories\UserFactory;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids;
+    use HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
      */
     protected $fillable = [
         'active',
         'first_name',
+        'middle_name',
         'last_name',
         'username',
         'phone',
@@ -52,13 +53,21 @@ class User extends Authenticatable
     ];
 
     /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): Factory
+    {
+        return UserFactory::new();
+    }
+
+    /**
      * Get user full name
      */
     public function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
-            // set: fn ($value, $attributes) => ''
+            get: fn ($name, $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
+            // set: fn ($name, $attributes) => ''
         );
     }
 }

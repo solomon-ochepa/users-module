@@ -15,12 +15,12 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'    => ['bail', 'required', 'string', 'min:3', 'max:32'],
-            'last_name'     => ['bail', 'required', 'string', 'min:3', 'max:32'],
-            'username'      => ['bail', 'nullable', 'string', 'min:3', 'max:16', "unique:users,username,{$this->id},id"],
-            'phone'         => ['bail', 'required', 'numeric', 'starts_with:+,234,0', "unique:users,phone,{$this->id},id"],
-            'email'         => ['bail', 'nullable', 'email', 'min:3', 'max:32', "unique:users,email,{$this->id},id"],
-            'image'         => ['bail', 'nullable', 'image', 'mimes:png,jpg,svg'],
+            'first_name'    => ['required', 'string', 'min:3', 'max:32'],
+            'last_name'     => ['required', 'string', 'min:3', 'max:32'],
+            'username'      => ['nullable', 'string', 'min:3', 'max:16', "unique:users,username,{$this->id},id"],
+            'phone'         => ['required', 'numeric', 'starts_with:+,234,0', "unique:users,phone,{$this->id},id"],
+            'email'         => ['nullable', 'email', 'min:3', 'max:32', "unique:users,email,{$this->id},id"],
+            'image'         => ['nullable', 'image', 'mimes:png,jpg,svg'],
         ];
     }
 
